@@ -1,0 +1,27 @@
+import requests
+import json
+response=requests.get('http://www.bom.gov.au/fwo/IDN60801/IDN60801.94596.json')
+data= response.json()
+with open('data.json','w') as raw:
+    json.dump(data,raw)
+a=data['observations']['data']
+
+
+air_temp = []
+for i in a:
+    air_temp.append(i["air_temp"])
+maximum=max(air_temp)
+minimum=min(air_temp)
+average=sum(air_temp)/len(air_temp)
+print("AIR TEMPERATURE-""max='",maximum,"min=",minimum,"avg=",average)
+
+
+rel_hum = []
+for i in a:
+    rel_hum.append(i["rel_hum"])
+maximum=max(rel_hum)
+minimum=min(rel_hum)
+average=sum(rel_hum)/len(rel_hum)
+print("RELATIVE HUMIDITY-""max='",maximum,"min=",minimum,"avg=",average)
+
+
